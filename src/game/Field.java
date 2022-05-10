@@ -6,6 +6,7 @@ import piece.Piece;
 import piece.PieceShape;
 
 import java.awt.*;
+import game.Score;
 
 public class Field {
 	private static final Color[] FIELD_COLORS = { Color.RED, Color.LIGHT_GRAY, Color.MAGENTA, Color.PINK, Color.GREEN,
@@ -14,10 +15,19 @@ public class Field {
 	private FieldSquare[][] field;
 	private Color[][] fieldColor;
 	private Random random;
+	private Score scoreController;
 
-	public Field(int fieldHeight, int fieldWidth) {
+	public Field(int fieldHeight, int fieldWidth, Score score) {
 		this.random = new Random();
 		this.initializeField(fieldHeight, fieldWidth);
+
+		scoreController = score;
+		/*
+		if(scoreController == null){
+			scoreController = new Score();
+		}
+		*/
+
 	}
 
 	private void initializeField(int fieldHeight, int fieldWidth) {
@@ -225,6 +235,10 @@ public class Field {
 
 			if (isFullRow) {
 				this.shiftRows(row);
+				//Score++
+				if(scoreController == null) scoreController = new Score();
+				scoreController.incrementScore(10);
+				System.out.println("Inc score by 10");
 			}
 		}
 	}

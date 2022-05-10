@@ -11,7 +11,10 @@ public final class PieceGenerator {
 	}
 
 	public static Piece generatePiece(int x, int y) {
-		int randomNumber = random.nextInt(7);
+		int randomNumber = random.nextInt(8);
+
+
+
 
 		if (randomNumber == 0) {
 			return new Piece(x, y, new PieceShapeI());
@@ -25,8 +28,11 @@ public final class PieceGenerator {
 			return new Piece(x, y, new PieceShapeS());
 		} else if (randomNumber == 5) {
 			return new Piece(x, y, new PieceShapeT());
-		} else {
+		} else if (randomNumber == 6 )  {
 			return new Piece(x, y, new PieceShapeZ());
+		}
+		else{
+			return new Piece(x,y, new PieceShapeU());
 		}
 	}
 

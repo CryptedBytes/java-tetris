@@ -4,11 +4,12 @@ import display.Display;
 import piece.Piece;
 import piece.PieceGenerator;
 import states.*;
+import game.Score;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class Game {
+public class Game implements Runnable {
 
 	private static final int NEXT_PIECE_X = 11;
 	private static final int NEXT_PIECE_Y = 1;
@@ -33,20 +34,29 @@ public class Game {
 	private State menuState;
 	private State settingsState;
 	private Field field;
+	private Score score;
 	
 	private Piece currentPiece;
 	private Piece nextPiece;
 	
 	private boolean paused;
 
-	public Game(String title) {
+	public Game(String title, Score score) {
 		this.setTitle(title);
 
-		this.field = new Field(Game.FIELD_HEIGHT, Game.FIELD_WIDTH);
+		this.field = new Field(Game.FIELD_HEIGHT, Game.FIELD_WIDTH, score);
+
+		this.score = score;
+
 		
 		this.setCurrentPiece(PieceGenerator.generatePiece());
 		this.setNextPiece(PieceGenerator.generatePiece(Game.NEXT_PIECE_X, Game.NEXT_PIECE_Y));
 	}		
+
+
+	public boolean getPaused(){
+		return paused;
+	}
 
 	private String getTitle() {
 		return title;
@@ -86,6 +96,7 @@ public class Game {
 
 	private void setPaused(boolean paused) {
 		this.paused = paused;
+		System.out.println("Game paused. Halt.");
 	}
 
 	private void init() {
@@ -143,13 +154,16 @@ public class Game {
 		this.graphics.clearRect(0, 0, this.display.getWidth(), this.display.getHeight());
 		// Beginning of drawing things on the screen
 
-		this.graphics.drawLine(300, 0, 300, 600);
+		//this.graphics.drawLine(300, 0, 300, 600);
+
 
 		this.field.render(this.graphics);
 		this.currentPiece.render(this.graphics);
 		this.nextPiece.render(this.graphics);
 
-		// Checks if a State exists and render()
+		this.score.render(this.graphics);
+
+		// Checks if a State exists and render()öKé
 		// if (StateManager.getState() != null){
 		// StateManager.getState().render(this.g);
 		// }
@@ -173,13 +187,25 @@ public class Game {
 				break;
 			}
 
-			this.tick();
-			this.render();
+			//this.tick();
+			//this.render();
+
+
+			if(field.isPieceIntoBrick(currentPiece) && currentPiece.getY() == 0){
+				setRunning(false);
+				setPaused(true);
+
+			} else{
+				this.tick();
+				this.render();
+			}
+
 		}
 	}
 
 	public void pause() {
 		this.paused = true;
+		System.out.println("Game paused. Halt.");
 	}
 
 	public void resume() {

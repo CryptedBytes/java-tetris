@@ -17,21 +17,29 @@ public class InputHandler implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 
-		if (keyCode == KeyEvent.VK_SPACE) {
-			game.rotatePiece();
-		} else if (keyCode == KeyEvent.VK_DOWN) {
-			game.movePieceDown();
-		} else if (keyCode == KeyEvent.VK_LEFT) {
-			game.movePieceLeft();
-		} else if (keyCode == KeyEvent.VK_RIGHT) {
-			game.movePieceRight();
-		} else if (keyCode == KeyEvent.VK_ESCAPE) {
-			System.exit(0);
-		} else if (keyCode == KeyEvent.VK_P) {
-			game.pause();
-		} else if (keyCode == KeyEvent.VK_S) {
-			game.resume();
+		if(!game.getPaused()){
+
+
+			if (keyCode == KeyEvent.VK_SPACE) {
+				game.rotatePiece();
+			} else if (keyCode == KeyEvent.VK_DOWN) {
+				game.movePieceDown();
+			} else if (keyCode == KeyEvent.VK_LEFT) {
+				game.movePieceLeft();
+			} else if (keyCode == KeyEvent.VK_RIGHT) {
+				game.movePieceRight();
+			} else if (keyCode == KeyEvent.VK_ESCAPE) {
+				System.exit(0);
+			} else if (keyCode == KeyEvent.VK_P) {
+				game.pause();
+			} else if (keyCode == KeyEvent.VK_S) {
+				game.resume();
+			}
+
+
 		}
+
+
 	}
 
 	@Override
