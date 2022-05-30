@@ -35,20 +35,24 @@ public class Game implements Runnable {
 	private State settingsState;
 	private Field field;
 	private Score score;
-	
+	private InfoDisplay infodisplay;
+
 	private Piece currentPiece;
 	private Piece nextPiece;
 	
 	private boolean paused;
 
-	public Game(String title, Score score) {
+
+	public Game(String title, Score score, InfoDisplay infodisplay) {
 		this.setTitle(title);
 
 		this.field = new Field(Game.FIELD_HEIGHT, Game.FIELD_WIDTH, score);
 
 		this.score = score;
 
-		
+		if(infodisplay != null) this.infodisplay = infodisplay;
+
+
 		this.setCurrentPiece(PieceGenerator.generatePiece());
 		this.setNextPiece(PieceGenerator.generatePiece(Game.NEXT_PIECE_X, Game.NEXT_PIECE_Y));
 	}		
@@ -162,6 +166,8 @@ public class Game implements Runnable {
 		this.nextPiece.render(this.graphics);
 
 		this.score.render(this.graphics);
+
+		if(infodisplay != null) this.infodisplay.render(this.graphics);
 
 		// Checks if a State exists and render()öKé
 		// if (StateManager.getState() != null){

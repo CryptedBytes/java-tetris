@@ -77,7 +77,7 @@ public class Field {
 		for (int row = 0; row < field.length; row++) {
 			for (int col = 0; col < field[row].length; col++) {
 				if (this.field[row][col].equals(FieldSquare.EMPTY)) {
-					g.setColor(Color.BLUE);
+					g.setColor(Color.DARK_GRAY);
 					g.fillRect(col * 30, row * 30, 30, 30);
 				} else if (this.field[row][col].equals(FieldSquare.STACK)) {
 					g.setColor(this.fieldColor[row][col]);

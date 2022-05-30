@@ -1,5 +1,7 @@
 package display;
 
+import game.Launcher;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,6 +17,7 @@ public class Display extends Canvas {
 		this.setWidth(width);
 		this.setHeight(height);		
 		this.createDisplay();
+		getCanvas().addKeyListener(new Launcher());
 	}
 
 	public int getWidth() {
